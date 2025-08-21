@@ -6,9 +6,18 @@ bool canSplitIntoThree(string s) {
     for (int len = 1; len < n; len++) {
         string part = s.substr(0, len);
         string rest = s.substr(len);
-        if (rest.find(part) != string::npos) {
-            return true;
+        bool isSubstring(const string &str, const string &part) {
+    int n = str.size();
+    int m = part.size();
+    
+    for (int i = 0; i <= n - m; i++) {
+        int j;
+        for (j = 0; j < m; j++) {
+            if (str[i + j] != part[j])
+                break;
         }
+        if (j == m)  
+            return true;
     }
     return false;
 }
@@ -26,3 +35,4 @@ int main() {
 
     return 0;
 }
+
