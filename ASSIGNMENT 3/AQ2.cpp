@@ -1,73 +1,57 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-
-int stackArr[100];
-int top = -1;
-int minElement;
-
-void push(int x) {
-    if (top == -1) {
-        top++;
-        stackArr[top] = x;
-        minElement = x;
-    } 
-    else if (x >= minElement) {
-        top++;
-        stackArr[top] = x;
-    } 
-    else {
-        top++;
-        stackArr[top] = 2 * x - minElement; 
-        minElement = x;
+#define n 100
+class Stack{
+    int arr[n];
+    int top=-1;
+public:
+    int m=INT_MAX;
+    void push(int num){
+        if(top==n-1) cout<<"Stack Full";
+        else{ 
+            top++;
+            arr[top]=num;
+            if(num<m) m=num; 
+        }
     }
+    void pop() {
+        if (top == -1) {
+            cout << "Not possible, stack is empty\n";
+            return;
+        }
+        int popped = arr[top--];
+        if (popped == m) {
+            m = INT_MAX;
+            for (int i = 0; i <= top; i++) {
+                if (arr[i] < m) m = arr[i];
+            }
+        }
+    }
+    int peek(){
+        if(top==-1) cout<<"Not possible , stack is empty";
+        return arr[top];
+    }
+    int isEmpty(){
+        if(top==-1) return 1;
+        else return 0;
+    }
+    int isFull(){
+        if(top==n-1) return 1;
+        else return 0;
+    }
+    void display(){
+        for(int i=top;i>=0;i++) cout<<arr[i]<<" ";
+    }
+    void getmin(){
+    cout<<m;
 }
-
-void pop() {
-    if (top == -1) {
-        cout << "Stack is empty\n";
-        return;
-    }
-    int t = stackArr[top];
-    top--;
-    if (t < minElement) {
-        minElement = 2 * minElement - t;
-    }
-}
-
-int peek() {
-    if (top == -1) {
-        cout << "Stack is empty\n";
-        return -1;
-    }
-    if (stackArr[top] >= minElement)
-        return stackArr[top];
-    else
-        return minElement;
-}
-
-int getMin() {
-    if (top == -1) {
-        cout << "Stack is empty\n";
-        return -1;
-    }
-    return minElement;
-}
-
-int main() {
-    push(5);
-    push(3);
-    push(7);
-    push(2);
-    push(8);
-
-    cout << "Current Min: " << getMin() << "\n"; 
-    pop();
-    cout << "Current Min: " << getMin() << "\n"; 
-    pop();
-    cout << "Current Min: " << getMin() << "\n"; 
-    pop();
-    cout << "Top Element: " << peek() << "\n"; 
-    cout << "Current Min: " << getMin() << "\n";
-
+};
+int main(){
+    Stack s;
+    s.push(18);
+    s.push(15);
+    s.push(9);
+    s.pop();
+    s.getmin();
     return 0;
 }
