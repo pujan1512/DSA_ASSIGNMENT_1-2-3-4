@@ -1,50 +1,30 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-
-int n;
-int arr[100];
-int stackArr[100];
-int top = -1;
-
-void push(int val) {
-    stackArr[++top] = val;
-}
-
-int pop() {
-    return stackArr[top--];
-}
-
-int peek() {
-    return stackArr[top];
-}
-
-bool isEmpty() {
-    return top == -1;
-}
-
-int main() {
-    cout << "Enter size of array: ";
-    cin >> n;
-
-    cout << "Enter array elements: ";
-    for (int i = 0; i < n; i++) {
-        cin >> arr[i];
-    }
-
-    cout << "Nearest Smaller Elements: ";
-    for (int i = 0; i < n; i++) {
-        while (top != -1 && stackArr[top] >= arr[i]) {
-            pop();
+void nse(){
+    int n,m=0;
+    cout<<"Enter size of array: ";
+    cin>>n;
+    int arr[n],ans[n];
+    cout<<"Enter array\n";
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+        if(i==0){
+            cout<<-1<<" ";
         }
-
-        if (isEmpty()) {
-            cout << "-1 ";
-        } else {
-            cout << peek() << " ";
+        else{
+            for(int j=i-1;j>=0;j--){
+                m=0;
+                if(arr[j]<arr[i]){
+                    cout<<arr[j]<<" ";
+                    m=1;
+                    break;
+                }
+            }
+            if(m==0) cout<<-1<<" ";
         }
-
-        push(arr[i]);
     }
-
+}
+int main(){
+    nse();
     return 0;
 }
